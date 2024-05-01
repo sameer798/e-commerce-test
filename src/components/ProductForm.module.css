@@ -1,0 +1,24 @@
+.form-container {
+    font-weight: 600;
+    width: 400px;
+    background-color: rgb(238, 235, 232);
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 10px;
+    
+
+}
+.form-container div {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.product-form label {
+    /* margin: 10px; */
+    display: inline-block;
+    width: 110px;
+    height: 30px;
+
+}
+.product-form input{
+    width: 50%;
+}

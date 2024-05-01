@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ProductForm from "./components/ProductFrom";
+import ProductList from "./components/ProductList";
 
 function App() {
+  const [product, setData] = useState([
+    { productId: 1, sellingPrice: 2000, productName: "GamingLaptop" },
+    { productId: 2, sellingPrice: 2500, productName: "Smartphone" },
+    { productId: 3, sellingPrice: 1500, productName: "Headphones" },
+    // Add more products if needed
+  ]);
+
+  const addProductHandler = (data) => {
+    setData([...product, data]);
+    // Update localStorage
+    localStorage.setItem(data.productId, JSON.stringify(data));
+  };
+
+  const deleteProductHandler = (productId) => {
+    // Filter out the deleted product
+    const updatedProductList = product.filter(
+      (item) => item.productId !== productId
+    );
+    setData(updatedProductList);
+  };
+
+  const totalSellingPrice = product.reduce((total, item) => total + +item.sellingPrice, 0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ProductForm onAddProduct={addProductHandler} />
+      <ProductList data={product} onDeleteProduct={deleteProductHandler}/>
+      {totalSellingPrice > 0 && (
+        <p>Total Selling Price: {totalSellingPrice}</p>
+      )}
+    </>
   );
 }
 
